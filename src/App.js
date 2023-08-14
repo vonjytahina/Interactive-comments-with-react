@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState } from "react";
+import Comments from "./comments/Comments";
 
 function App() {
+  const [showVignet, setShowVignet] = useState(false)
+  const handleVignet = (val) => {
+    setShowVignet(val)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <div className="container">
+      <div className="app">
+        <Comments handleVignet={(val) => handleVignet(val)}/>          
+      </div>
     </div>
+    <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://www.frontendmentor.io/profile/vonjytahina" target="_blank">Vonjy Tahina CHAN</a>.
+  </div>
+    {showVignet && <div class="vignet"></div>}
+    
+    </>
   );
 }
 

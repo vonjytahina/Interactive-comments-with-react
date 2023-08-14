@@ -1,13 +1,520 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+:root {
+  --primary-moderate-blue: hsl(238, 40%, 52%);
+  --primary-soft-red: hsl(358, 79%, 66%);
+  --primary-light-grayish-blue: hsl(239, 57%, 85%);
+  --primary-pale-red: hsl(357, 100%, 86%);
+
+  --neutral-dark-blue: hsl(212, 24%, 26%);
+  --neutral-grayish-blue: hsl(211, 10%, 45%);
+  --neutral-light-gray: hsl(223, 19%, 93%);
+  --neutral-very-light-gray: hsl(228, 33%, 97%);
+  --neutral-white: hsl(0, 0%, 100%);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+  font-size: 16px;
+}
+
+body {
+  position:  relative;
+}
+
+body .vignet {
+  position: absolute;
+  /* display: none; */
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+  z-index: 5;
+}
+
+body .delete-confirmation {
+  background: var(--neutral-white);
+  /* display: none; */
+  padding: 25px;
+  border-radius: 7px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 375px;
+  height: 220px;
+  z-index: 10;
+}
+
+.delete-confirmation h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--neutral-dark-blue);
+}
+
+.delete-confirmation p {
+  padding-right: 15px;
+  line-height: 20px;
+  color: var(--neutral-grayish-blue);
+  margin-bottom: 20px;
+}
+
+.delete-confirmation .buttons-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-confirmation .buttons-container .no, .delete-confirmation .buttons-container .yes {
+  width: 157px;
+  border: none;
+  outline: none;
+  padding: 10px 0px;
+  text-transform: uppercase;
+  color: var(--neutral-white);
+  border-radius: 5px;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+}
+
+.delete-confirmation .buttons-container .no {
+  background: var(--neutral-grayish-blue);
+}
+
+.delete-confirmation .buttons-container .no:hover {
+  background: rgba(103, 114, 126, .8);
+}
+
+.delete-confirmation .buttons-container .yes {
+  background: var(--primary-soft-red);
+}
+
+.delete-confirmation .buttons-container .yes:hover {
+  background: var(--primary-pale-red);
+}
+
+.container {
+  width: 1440px;
+  height: auto;
+  margin: 0px auto;
+  background: var(--neutral-light-gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.attribution {
+  text-align: center;
+  margin: 15px auto;
+  font-size: 12px;
+}
+
+.attribution a {
+  font-size: 12px;
+}
+
+.app {
+  width: 700px;
+  height: auto;
+  margin: 50px 0px;
+  position: relative;
+}
+
+.app .comment{
+  display: flex;
+  gap: 20px;
+  background: var(--neutral-white);
+  padding: 20px;
+  border-radius: 7px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.comment-reply-list {
+  width: 100%;
+  height: auto;
+  background: linear-gradient(rgba(0, 0, 0, .1) 0 0);
+  background-size: 1px 90%;
+  background-position: top 0% left 35px;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.comment-reply-list .comment {
+  width: 90%;
+}
+
+.comment .left {
+  background: var(--neutral-light-gray);
+  width: 35px;
+  height: 85px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.comment .left .score {
+  color: var(--primary-moderate-blue);
+  font-weight: 500;
+}
+
+.comment .left .plus:hover svg path,
+.comment .left .minus:hover svg path {
+  fill: var(--primary-moderate-blue);
+  transition: all .3s ease-in-out;
+}
+
+.comment .left .plus,
+.comment .left .minus {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.score-disabled {
+  pointer-events: none; /* Disable click events */
+  opacity: 0.5;
+}
+
+.comment .right {
+  width: 92%;
+}
+
+.comment .right .right-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment .right .right-top .right-top-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.comment .right .right-top .right-top-left .image {
+ height: 30px;
+}
+
+.comment .right .right-top .right-top-left .image img {
+  height: 30px;
+}
+
+.comment .right .right-top .right-top-left .user-name {
+  color: var(--neutral-dark-blue);
+  font-weight: 500;
+}
+
+.comment .right .right-top .right-top-left .created-at {
+  color: var(--neutral-grayish-blue);
+}
+
+.comment .right .right-bottom .content {
+  color: var(--neutral-grayish-blue);
+  margin-top: 10px;
+  line-height: 20px;
+  width: 100%;
+}
+
+.comment .right .right-bottom .content .arobase {
+  color: var(--primary-moderate-blue);
+  font-weight: 500;
+}
+
+.comment .right .right-top .right-top-right {
+  display: flex;
+  gap: 20px;
+}
+
+.comment .right .right-top .right-top-right .reply-container .reply,.comment .right .right-top .right-top-right .edit-container .edit {
+  color: var(--primary-moderate-blue);
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.comment .right .right-top .right-top-right .delete-container .delete {
+  color: var(--primary-soft-red);
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+
+.comment .right .right-top .right-top-right .reply-container:hover .reply, .comment .right .right-top .right-top-right .edit-container:hover .edit {
+  color: var(--primary-light-grayish-blue);
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.comment .right .right-top .right-top-right .delete-container:hover .delete {
+  color: var(--primary-pale-red);
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.comment .right .right-top .right-top-right .reply-container:hover svg path,
+.comment .right .right-top .right-top-right .edit-container:hover svg path {
+  fill: var(--primary-light-grayish-blue);
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.comment .right .right-top .right-top-right .delete-container:hover svg path {
+  fill: var(--primary-pale-red);
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.add-comment, .add-reply {
+  display: flex;
+  gap: 15px;
+  background: var(--neutral-white);
+  padding: 20px;
+  border-radius: 7px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+.add-reply {
+  margin-top: -15px;
+  gap: 13px!important;
+}
+
+.add-comment .avatar, .add-reply .avatar {
+  width: 5%;
+}
+
+.add-comment .avatar img {
+  width: 35px;
+}
+
+.add-reply .avatar img {
+  width: 32px;
+}
+
+.add-comment .input-text-area {
+  width: 80%;
+}
+
+.add-reply .input-text-area {
+  width: 80%;
+}
+
+.add-comment .input-text-area textarea, .add-reply .input-text-area textarea, .edit-reply .right-bottom .content textarea {
+  width: 100%;
+  border: 1px solid var(--primary-light-grayish-blue);
+  border-radius: 7px;
+  height: 80px;
+  outline: none;
+  resize: none;
+  padding: 10px 15px;
+  transition: all .3s ease-in-out;
+}
+
+.add-comment .input-text-area textarea:focus, .add-reply .input-text-area textarea:focus, .edit-reply .right-bottom .content textarea:focus {
+  border: 1px solid var(--neutral-grayish-blue);
+}
+
+.add-comment .button-send, .add-reply .button-reply {
+  width: 15%;
+}
+
+ .add-reply .button-send {
+  width: 18%;
+}
+
+.add-comment .button-send .send, .add-reply .button-reply .reply {
+  border: none;
+  outline: none;
+  background: var(--primary-moderate-blue);
+  text-transform: uppercase;
+  border-radius: 7px;
+  font-weight: 500;
+  width: 100%;
+  padding: 10px 0px;
+  color: var(--neutral-white);
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+
+}
+
+.add-comment .button-send .send:hover, .add-reply .button-reply .reply:hover {
+  background: var(--primary-light-grayish-blue);
+}
+
+.add-comment .button-send .send:disabled, .add-reply .button-reply .reply:disabled {
+  background: var(--primary-light-grayish-blue);
+  cursor: auto;
+}
+
+.edit-reply .right-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.edit-reply .right-top-left {
+  gap: 15px!important;
+}
+
+.edit-reply .you {
+  background: var(--primary-moderate-blue);
+  font-size: 12px;
+  color: var(--neutral-white);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 15px;
+  margin-right: 10px;
+}
+
+.edit-reply .right-bottom .content:focus {
+  border: 1px solid var(--neutral-grayish-blue);
+  border-radius: 7px;
+  padding: 10px 15px;
+  outline: none;
+  transition: all .3s ease-in-out;
+}
+
+.button-update {
+  margin-top: 15px;
+  /* display: none; */
+}
+
+.button-update .update {
+  border: none;
+  outline: none;
+  background: var(--primary-moderate-blue);
+  text-transform: uppercase;
+  border-radius: 7px;
+  font-weight: 500;
+  width: 95px;
+  padding: 10px 0px;
+  color: var(--neutral-white);
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.button-update .update:hover {
+  background: var(--primary-light-grayish-blue);
+}
+
+
+/* responsive */
+@media screen and (max-width: 375px) {
+  * {
+   font-size: 15px;
+  }
+
+  .container {
+    width: 375px;
+    height: auto;
+    border: none;
+    overflow: hidden;
+  }
+
+  .app {
+    width: 340px;
+  }
+
+  .app .comment{
+    flex-direction: column;
+    padding: 15px;
+    position: relative;
+  }
+
+  .app .comment .left {
+    order: 1;
+    width: 85px;
+    height: 35px;
+    flex-direction: row;
+    padding: 0px 10px;
+  }
+
+  .app .comment .right {
+    order: 0;
+    width: 100%;
+  }
+
+  /* .comment .right .right-top {
+  position: relative;
+} */
+
+  .comment .right .right-top-right {
+  position: absolute;
+  bottom: 10%;
+    right: 5%;
+} 
+
+  .comment .right .right-bottom .content {
+    padding: 0px;
+  }
+  
+  .comment-reply-list {
+    background-position: top 0% left 0px;
+  }
+
+  .comment-reply-list .comment {
+    width: 95%;
+  }
+
+  .app p {
+    padding: 0 15px 20px 15px;
+  }
+
+  .add-comment, .add-reply {
+  flex-direction: column;
+  position: relative;
+}
+
+.add-comment .input-text-area, .add-reply .input-text-area {
+  order: 0;
+  width: 100%;
+}
+
+.add-comment .avatar, .add-reply .avatar {
+  order: 1;
+}
+
+.add-comment .button-send, .add-reply .button-reply {
+  order: 1;
+  position: absolute;
+  bottom: 12%;
+    right: 5%;
+    width: 95px;
+}
+
+body .delete-confirmation {
+  width: 340px;
+  height: 220px;
+  z-index: 10;
+}
+
+.delete-confirmation h3 {
+  font-size: 20px;
+}
+
+.delete-confirmation p {
+  padding: 0 10px 0px 0px;
+}
+
+.delete-confirmation .buttons-container .no, .delete-confirmation .buttons-container .yes {
+  width: 140px;
+  font-size: 17px;
+}
+
 }
