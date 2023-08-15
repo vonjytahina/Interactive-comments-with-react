@@ -22,7 +22,7 @@
 }
 
 body {
-  position:  relative;
+  position: relative;
 }
 
 body .vignet {
@@ -32,7 +32,7 @@ body .vignet {
   left: 0%;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, .5);
   z-index: 5;
 }
 
@@ -69,7 +69,8 @@ body .delete-confirmation {
   justify-content: space-between;
 }
 
-.delete-confirmation .buttons-container .no, .delete-confirmation .buttons-container .yes {
+.delete-confirmation .buttons-container .no,
+.delete-confirmation .buttons-container .yes {
   width: 157px;
   border: none;
   outline: none;
@@ -124,7 +125,7 @@ body .delete-confirmation {
   position: relative;
 }
 
-.app .comment{
+.app .comment {
   display: flex;
   gap: 20px;
   background: var(--neutral-white);
@@ -168,9 +169,13 @@ body .delete-confirmation {
   font-weight: 500;
 }
 
-.comment .left .plus:hover svg path,
+.comment .left .plus:hover svg path {
+  fill: green;
+  transition: all .3s ease-in-out;
+}
+
 .comment .left .minus:hover svg path {
-  fill: var(--primary-moderate-blue);
+  fill: red;
   transition: all .3s ease-in-out;
 }
 
@@ -184,9 +189,14 @@ body .delete-confirmation {
   cursor: pointer;
 }
 
-.score-disabled {
-  pointer-events: none; /* Disable click events */
-  opacity: 0.5;
+
+
+.plus.score-disabled svg path{
+  fill: green;
+}
+
+.minus.score-disabled svg path {
+  fill: red;
 }
 
 .comment .right {
@@ -206,7 +216,7 @@ body .delete-confirmation {
 }
 
 .comment .right .right-top .right-top-left .image {
- height: 30px;
+  height: 30px;
 }
 
 .comment .right .right-top .right-top-left .image img {
@@ -239,7 +249,8 @@ body .delete-confirmation {
   gap: 20px;
 }
 
-.comment .right .right-top .right-top-right .reply-container .reply,.comment .right .right-top .right-top-right .edit-container .edit {
+.comment .right .right-top .right-top-right .reply-container .reply,
+.comment .right .right-top .right-top-right .edit-container .edit {
   color: var(--primary-moderate-blue);
   font-weight: 500;
   margin-left: 5px;
@@ -252,7 +263,8 @@ body .delete-confirmation {
 }
 
 
-.comment .right .right-top .right-top-right .reply-container:hover .reply, .comment .right .right-top .right-top-right .edit-container:hover .edit {
+.comment .right .right-top .right-top-right .reply-container:hover .reply,
+.comment .right .right-top .right-top-right .edit-container:hover .edit {
   color: var(--primary-light-grayish-blue);
   cursor: pointer;
   transition: all .3s ease-in-out;
@@ -277,7 +289,8 @@ body .delete-confirmation {
   transition: all .3s ease-in-out;
 }
 
-.add-comment, .add-reply {
+.add-comment,
+.add-reply {
   display: flex;
   gap: 15px;
   background: var(--neutral-white);
@@ -289,10 +302,11 @@ body .delete-confirmation {
 
 .add-reply {
   margin-top: -15px;
-  gap: 13px!important;
+  gap: 13px !important;
 }
 
-.add-comment .avatar, .add-reply .avatar {
+.add-comment .avatar,
+.add-reply .avatar {
   width: 5%;
 }
 
@@ -312,7 +326,9 @@ body .delete-confirmation {
   width: 80%;
 }
 
-.add-comment .input-text-area textarea, .add-reply .input-text-area textarea, .edit-reply .right-bottom .content textarea {
+.add-comment .input-text-area textarea,
+.add-reply .input-text-area textarea,
+.edit-reply .right-bottom .content textarea {
   width: 100%;
   border: 1px solid var(--primary-light-grayish-blue);
   border-radius: 7px;
@@ -323,19 +339,23 @@ body .delete-confirmation {
   transition: all .3s ease-in-out;
 }
 
-.add-comment .input-text-area textarea:focus, .add-reply .input-text-area textarea:focus, .edit-reply .right-bottom .content textarea:focus {
+.add-comment .input-text-area textarea:focus,
+.add-reply .input-text-area textarea:focus,
+.edit-reply .right-bottom .content textarea:focus {
   border: 1px solid var(--neutral-grayish-blue);
 }
 
-.add-comment .button-send, .add-reply .button-reply {
+.add-comment .button-send,
+.add-reply .button-reply {
   width: 15%;
 }
 
- .add-reply .button-send {
+.add-reply .button-send {
   width: 18%;
 }
 
-.add-comment .button-send .send, .add-reply .button-reply .reply {
+.add-comment .button-send .send,
+.add-reply .button-reply .reply {
   border: none;
   outline: none;
   background: var(--primary-moderate-blue);
@@ -350,11 +370,13 @@ body .delete-confirmation {
 
 }
 
-.add-comment .button-send .send:hover, .add-reply .button-reply .reply:hover {
+.add-comment .button-send .send:hover,
+.add-reply .button-reply .reply:hover {
   background: var(--primary-light-grayish-blue);
 }
 
-.add-comment .button-send .send:disabled, .add-reply .button-reply .reply:disabled {
+.add-comment .button-send .send:disabled,
+.add-reply .button-reply .reply:disabled {
   background: var(--primary-light-grayish-blue);
   cursor: auto;
 }
@@ -366,7 +388,7 @@ body .delete-confirmation {
 }
 
 .edit-reply .right-top-left {
-  gap: 15px!important;
+  gap: 15px !important;
 }
 
 .edit-reply .you {
@@ -417,7 +439,7 @@ body .delete-confirmation {
 /* responsive */
 @media screen and (max-width: 375px) {
   * {
-   font-size: 15px;
+    font-size: 15px;
   }
 
   .container {
@@ -431,7 +453,7 @@ body .delete-confirmation {
     width: 340px;
   }
 
-  .app .comment{
+  .app .comment {
     flex-direction: column;
     padding: 15px;
     position: relative;
@@ -455,15 +477,15 @@ body .delete-confirmation {
 } */
 
   .comment .right .right-top-right {
-  position: absolute;
-  bottom: 10%;
+    position: absolute;
+    bottom: 10%;
     right: 5%;
-} 
+  }
 
   .comment .right .right-bottom .content {
     padding: 0px;
   }
-  
+
   .comment-reply-list {
     background-position: top 0% left 0px;
   }
@@ -476,45 +498,50 @@ body .delete-confirmation {
     padding: 0 15px 20px 15px;
   }
 
-  .add-comment, .add-reply {
-  flex-direction: column;
-  position: relative;
-}
+  .add-comment,
+  .add-reply {
+    flex-direction: column;
+    position: relative;
+  }
 
-.add-comment .input-text-area, .add-reply .input-text-area {
-  order: 0;
-  width: 100%;
-}
+  .add-comment .input-text-area,
+  .add-reply .input-text-area {
+    order: 0;
+    width: 100%;
+  }
 
-.add-comment .avatar, .add-reply .avatar {
-  order: 1;
-}
+  .add-comment .avatar,
+  .add-reply .avatar {
+    order: 1;
+  }
 
-.add-comment .button-send, .add-reply .button-reply {
-  order: 1;
-  position: absolute;
-  bottom: 12%;
+  .add-comment .button-send,
+  .add-reply .button-reply {
+    order: 1;
+    position: absolute;
+    bottom: 12%;
     right: 5%;
     width: 95px;
-}
+  }
 
-body .delete-confirmation {
-  width: 340px;
-  height: 220px;
-  z-index: 10;
-}
+  body .delete-confirmation {
+    width: 340px;
+    height: 220px;
+    z-index: 10;
+  }
 
-.delete-confirmation h3 {
-  font-size: 20px;
-}
+  .delete-confirmation h3 {
+    font-size: 20px;
+  }
 
-.delete-confirmation p {
-  padding: 0 10px 0px 0px;
-}
+  .delete-confirmation p {
+    padding: 0 10px 0px 0px;
+  }
 
-.delete-confirmation .buttons-container .no, .delete-confirmation .buttons-container .yes {
-  width: 140px;
-  font-size: 17px;
-}
+  .delete-confirmation .buttons-container .no,
+  .delete-confirmation .buttons-container .yes {
+    width: 140px;
+    font-size: 17px;
+  }
 
 }

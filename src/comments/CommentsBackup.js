@@ -32,18 +32,14 @@ function timeAgo(input) {
 }
 
 // parent comments component
-const Comments = ({ handleVignet }) => {
+const Comments = ({handleVignet}) => {
   // comments state
   const [backendComments, setBackendComments] = useState([]);
 
   const [showDeleteBox, setshowDeleteBox] = useState(false);
-
-  // Initialize state for plusClicked and minusClicked
-  const [plusClicked, setPlusClicked] = useState(false);
-  const [minusClicked, setMinusClicked] = useState(false);
   // parent comments and sort by score
 
-  const [deleteId, setDeleteId] = useState("");
+  const [deleteId, setDeleteId] = useState("")
   const rootComments = backendComments
     .filter((backendComment) => backendComment.parentId === null)
     .sort((a, b) => b.score - a.score);
@@ -77,57 +73,56 @@ const Comments = ({ handleVignet }) => {
   };
 
   // handle score and update comments
-  // Update the handleVote function
   const handleVote = (commentId, voteType) => {
-    const updatedComments = backendComments.map((comment) => {
-      if (comment.id === commentId) {
-        let newScore = comment.score;
-        if (voteType === "up" && !comment.plusClicked) {
-          newScore += 1;
-        } else if (
-          voteType === "down" &&
-          !comment.minusClicked &&
-          comment.score > 0
-        ) {
-          newScore -= 1;
-        }
+    console.log(
+      "handleVoote handleVootehandleVootehandleVootehandleVootehandleVootehandleVoote"
+    );
+    const updatedComments = updateCommentScore(
+      backendComments,
+      commentId,
+      voteType
+    );
+    setBackendComments(updatedComments);
+  };
 
+ 
+
+  const updateCommentScore = (comments, targetId, voteType) => {
+    return comments.map((comment) => {
+      if (comment.id === targetId) {
         return {
           ...comment,
-          score: newScore,
-          plusClicked:
-            voteType === "up" ? !comment.plusClicked : comment.plusClicked,
-          minusClicked:
-            voteType === "down" ? !comment.minusClicked : comment.minusClicked,
+          score: voteType === "up" ? comment.score + 1 : comment.score - 1,
+        };
+      } else if (comment.replies && comment.replies.length > 0) {
+        return {
+          ...comment,
+          replies: updateCommentScore(comment.replies, targetId, voteType),
         };
       }
       return comment;
     });
-
-    setBackendComments(updatedComments);
   };
 
   const handleDelete = (commentId) => {
-    setDeleteId(commentId);
-    handleVignet(true);
+    setDeleteId(commentId)
+    handleVignet(true)
     setshowDeleteBox(true);
   };
 
   const handleCancelDelete = () => {
-    handleVignet(false);
+    handleVignet(false)
     setshowDeleteBox(false);
-  };
+  }
 
   const handleConfirmDelete = () => {
-    handleVignet(false);
+    handleVignet(false)
     setshowDeleteBox(false);
     deleteCommentApi(deleteId).then(() => {
-      const updatedBackendComments = backendComments.filter(
-        (backendComment) => backendComment.id !== deleteId
-      );
-      setBackendComments(updatedBackendComments);
-    });
-  };
+      const updatedBackendComments = backendComments.filter(backendComment => backendComment.id !== deleteId)
+      setBackendComments(updatedBackendComments)
+    })
+  }
 
   // fetch comments
   useEffect(() => {
@@ -148,11 +143,11 @@ const Comments = ({ handleVignet }) => {
               relativeCreatedAt: timeAgo(rootComment.createdAt),
             }}
             replies={getReplies(rootComment.id)}
-            handleVote={handleVote}
-            handleDelete={(commentId) => handleDelete(commentId)}
-            handleAddReply={(parentId, replyText) =>
-              addComment(replyText, parentId)
+            handleVote={(commentId, voteType) =>
+              handleVote(commentId, voteType)
             }
+            handleDelete={(commentId) => handleDelete(commentId)}
+            handleAddReply={(parentId, replyText) => addComment(replyText, parentId)}
             handleUpdateComment={(commentId, updatedText) => {
               updateCommentApi(backendComments, commentId, updatedText).then(
                 (updatedComments) => {
@@ -172,12 +167,8 @@ const Comments = ({ handleVignet }) => {
             comment and can't be undone.
           </p>
           <div class="buttons-container">
-            <button class="no" onClick={handleCancelDelete}>
-              no, cancel
-            </button>
-            <button class="yes" onClick={handleConfirmDelete}>
-              yes, delete
-            </button>
+            <button class="no" onClick={handleCancelDelete}>no, cancel</button>
+            <button class="yes" onClick={handleConfirmDelete}>yes, delete</button>
           </div>
         </div>
       )}

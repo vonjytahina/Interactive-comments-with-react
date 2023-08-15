@@ -9,14 +9,13 @@ const Comment = ({
   handleVote,
   handleDelete,
   handleAddReply,
-  handleUpdateComment,
+  handleUpdateComment
 }) => {
   // comments states
   const [backendComments, setBackendComments] = useState([]);
   const [plusClicked, setPlusClicked] = useState(false);
   const [minusClicked, setMinusClicked] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
-  const [addedScore, setAddedScore] = useState(0);
   const [replyText, setReplyText] = useState("");
   const isReplyTextDisabled = replyText.length === 0;
   const [isEditMode, setIsEditMode] = useState(false);
@@ -26,7 +25,7 @@ const Comment = ({
     setShowReplyForm(!showReplyForm);
   };
 
-  // get parent comment id
+   // get parent comment id
   const getParent = (parentId) => {
     return backendComments.filter(
       (backendComment) => backendComment.id === parentId
@@ -43,6 +42,7 @@ const Comment = ({
     setIsEditMode(!isEditMode);
   };
 
+ 
   const handleUpdate = () => {
     handleUpdateComment(comment.id, editedContent); // Call the update function from prop
     setIsEditMode(false); // Exit edit mode
@@ -53,10 +53,6 @@ const Comment = ({
       setBackendComments(data);
     });
   }, []);
-
-  useEffect(() => {
-    console.log("addedScore:", addedScore);
-  }, [addedScore]);
 
   return (
     <>
@@ -69,19 +65,15 @@ const Comment = ({
               className={`plus ${plusClicked ? "score-disabled" : ""}`}
               onClick={() => {
                 if (!plusClicked) {
-                  handleVote(comment.id, "up"); // Increment the score
+                  handleVote(comment.id, "up");
                   setPlusClicked(true);
-                  setMinusClicked(false) // Set plusClicked to true
-                } else {
-                  handleVote(comment.id, "down"); // Decrement the score
-                  setPlusClicked(false); // Set plusClicked to false
                 }
               }}
             >
               <svg width="11" height="11" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M6.33 10.896c.137 0 .255-.05.354-.149.1-.1.149-.217.149-.354V7.004h3.315c.136 0 .254-.05.354-.149.099-.1.148-.217.148-.354V5.272a.483.483 0 0 0-.148-.354.483.483 0 0 0-.354-.149H6.833V1.4a.483.483 0 0 0-.149-.354.483.483 0 0 0-.354-.149H4.915a.483.483 0 0 0-.354.149c-.1.1-.149.217-.149.354v3.37H1.08a.483.483 0 0 0-.354.15c-.1.099-.149.217-.149.353v1.23c0 .136.05.254.149.353.1.1.217.149.354.149h3.333v3.39c0 .136.05.254.15.353.098.1.216.149.353.149H6.33Z"
-                  fill={plusClicked ? "#ED6368" : "#C5C6EF"}
+                  fill="#C5C6EF"
                 />
               </svg>
             </div>
@@ -89,20 +81,16 @@ const Comment = ({
             <div
               className={`minus ${minusClicked ? "score-disabled" : ""}`}
               onClick={() => {
-                if (!minusClicked) {
-                  handleVote(comment.id, "down"); // Decrement the score
+                if (!minusClicked && comment.score > 0) {
+                  handleVote(comment.id, "down");
                   setMinusClicked(true);
-                  setPlusClicked(false) // Set minusClicked to true
-                } else {
-                  handleVote(comment.id, "up"); // Increment the score
-                  setMinusClicked(false); // Set minusClicked to false
                 }
               }}
             >
               <svg width="11" height="3" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M9.256 2.66c.204 0 .38-.056.53-.167.148-.11.222-.243.222-.396V.722c0-.152-.074-.284-.223-.395a.859.859 0 0 0-.53-.167H.76a.859.859 0 0 0-.53.167C.083.437.009.57.009.722v1.375c0 .153.074.285.223.396a.859.859 0 0 0 .53.167h8.495Z"
-                  fill={minusClicked ? "#ED6368" : "#C5C6EF"}
+                  fill="#C5C6EF"
                 />
               </svg>
             </div>
@@ -154,18 +142,18 @@ const Comment = ({
             <div class="right-bottom">
               {isEditMode ? (
                 <>
-                  <p class="content">
-                    <textarea
-                      value={editedContent}
-                      onChange={(e) => setEditedContent(e.target.value)}
-                    />
-                  </p>
-                  <div class="button-update">
-                    <button class="update" onClick={handleUpdate}>
-                      Update
-                    </button>
-                  </div>
-                </>
+                <p class="content">                  
+                  <textarea
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                  />
+                </p>
+                <div class="button-update">
+                <button class="update" onClick={handleUpdate}>
+                  Update
+                </button>
+              </div>
+              </>
               ) : (
                 <p class="content">
                   <span className="arobase">
@@ -175,8 +163,8 @@ const Comment = ({
                       : ""}
                   </span>{" "}
                   {comment.body}
-                </p>
-              )}
+                </p>                
+              )}     
             </div>
           </div>
         </div>
@@ -188,12 +176,8 @@ const Comment = ({
                 className={`plus ${plusClicked ? "score-disabled" : ""}`}
                 onClick={() => {
                   if (!plusClicked) {
-                    handleVote(comment.id, "up"); // Increment the score
+                    handleVote(comment.id, "up");
                     setPlusClicked(true);
-                    setMinusClicked(false); // Set plusClicked to true
-                  } else {
-                    handleVote(comment.id, "down"); // Decrement the score
-                    setPlusClicked(false); // Set plusClicked to false
                   }
                 }}
               >
@@ -208,13 +192,9 @@ const Comment = ({
               <div
                 className={`minus ${minusClicked ? "score-disabled" : ""}`}
                 onClick={() => {
-                  if (!minusClicked) {
-                    handleVote(comment.id, "down"); // Decrement the score
+                  if (!minusClicked && comment.score > 0) {
+                    handleVote(comment.id, "down");
                     setMinusClicked(true);
-                    setPlusClicked(false); // Set minusClicked to true
-                  } else {
-                    handleVote(comment.id, "up"); // Increment the score
-                    setMinusClicked(false); // Set minusClicked to false
                   }
                 }}
               >
@@ -276,14 +256,13 @@ const Comment = ({
               </div>
               <div className="input-text-area">
                 <textarea
+                
                   value={replyText}
                   onChange={(e) => setReplyText(e.target.value)}
                 ></textarea>
               </div>
               <div className="button-reply" onClick={handleReplySubmit}>
-                <button className="reply" disabled={isReplyTextDisabled}>
-                  Reply
-                </button>
+                <button className="reply" disabled={isReplyTextDisabled}>Reply</button>
               </div>
             </div>
           )}
